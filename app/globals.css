@@ -1,0 +1,169 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Ivory Romance tokens */
+  --ivory: #f2ede6;
+  --ivory-card: #fdfaf6;
+  --brown-deep: #2c2318;
+  --brown-muted: #6b5b4e;
+  --taupe: #7d6e5e;
+  --taupe-pale: #c4b5a5;
+  --blush: #e8b4b8;
+  --sage: #8dab8e;
+
+  --background: #f2ede6;
+  --foreground: #2c2318;
+  --card: #fdfaf6;
+  --card-foreground: #2c2318;
+  --popover: #fdfaf6;
+  --popover-foreground: #2c2318;
+  --primary: #7d6e5e;
+  --primary-foreground: #fdfaf6;
+  --secondary: #c4b5a5;
+  --secondary-foreground: #2c2318;
+  --muted: #f2ede6;
+  --muted-foreground: #6b5b4e;
+  --accent: #e8b4b8;
+  --accent-foreground: #2c2318;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #fdfaf6;
+  --border: #c4b5a5;
+  --input: #c4b5a5;
+  --ring: #7d6e5e;
+  --radius: 1rem;
+
+  --chart-1: #7d6e5e;
+  --chart-2: #8dab8e;
+  --chart-3: #e8b4b8;
+  --chart-4: #c4b5a5;
+  --chart-5: #6b5b4e;
+
+  --sidebar: #fdfaf6;
+  --sidebar-foreground: #2c2318;
+  --sidebar-primary: #7d6e5e;
+  --sidebar-primary-foreground: #fdfaf6;
+  --sidebar-accent: #f2ede6;
+  --sidebar-accent-foreground: #2c2318;
+  --sidebar-border: #c4b5a5;
+  --sidebar-ring: #7d6e5e;
+}
+
+@theme inline {
+  --font-sans: var(--font-cairo), 'Tahoma', 'Arial', sans-serif;
+  --font-serif: var(--font-amiri), 'Scheherazade New', 'Georgia', serif;
+  --font-display: var(--font-scheherazade), var(--font-amiri), 'Georgia', serif;
+  --font-mono: var(--font-amiri), 'Georgia', serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-ivory: var(--ivory);
+  --color-ivory-card: var(--ivory-card);
+  --color-brown-deep: var(--brown-deep);
+  --color-brown-muted: var(--brown-muted);
+  --color-taupe: var(--taupe);
+  --color-taupe-pale: var(--taupe-pale);
+  --color-blush: var(--blush);
+  --color-sage: var(--sage);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body {
+    background: var(--ivory);
+    color: var(--brown-deep);
+  }
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+/* Display helpers — Arabic-first */
+.font-display {
+  font-family: var(--font-scheherazade), var(--font-amiri), 'Georgia', serif;
+}
+.font-serif-ar {
+  font-family: var(--font-amiri), 'Georgia', serif;
+}
+.font-body {
+  font-family: var(--font-amiri), 'Georgia', serif;
+}
+.font-ui {
+  font-family: var(--font-cairo), 'Tahoma', sans-serif;
+}
+
+/* English premium fonts */
+.font-english {
+  font-family: var(--font-playfair), 'Georgia', serif;
+}
+.font-english-body {
+  font-family: var(--font-cormorant), 'Georgia', serif;
+}
+
+/* Blends white/light backgrounds of decorative flower images into the
+   underlying ivory, so only the floral content remains visible.
+   brightness(1.15) pushes near-white JPG compression artifacts to pure
+   white so multiply eliminates them completely. */
+.floral-blend {
+  mix-blend-mode: multiply;
+  filter: brightness(1.15) contrast(1.06) saturate(1.14);
+}
+
+/* Utility for any image that should have its white bg removed,
+   with softer edges fading into the parent background. */
+.floral-blend-soft {
+  mix-blend-mode: multiply;
+  filter: brightness(1.18) contrast(1.04) saturate(1.1);
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 45%, black 55%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 45%, black 55%, transparent 100%);
+}
+
+/* Phone frame scrollbar hide */
+.phone-shell::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
+/* Arabic numerals look more elegant with a slight letter-spacing */
+.num-ar {
+  font-feature-settings: 'ss01' on, 'cv01' on;
+  letter-spacing: 0.02em;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
