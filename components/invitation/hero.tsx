@@ -95,9 +95,9 @@ export default function Hero({ revealed }: Props) {
         <div className="mt-6 flex flex-col items-center">
           <motion.h2
             variants={item}
-            className="font-english text-[58px] font-medium italic leading-[1.1] text-brown-deep/90 drop-shadow-sm"
+            className="font-display text-[84px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
           >
-            Moustafa
+            مُصْطَفَى
           </motion.h2>
 
           <motion.div
@@ -105,15 +105,15 @@ export default function Hero({ revealed }: Props) {
             className="my-2 flex items-center gap-5"
           >
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50" />
-            <span className="font-english-body text-[28px] italic text-taupe/50">&amp;</span>
+            <span className="font-display text-[48px] text-taupe/50">وَ</span>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-taupe-pale/50" />
           </motion.div>
 
           <motion.h2
             variants={item}
-            className="font-english text-[58px] font-medium italic leading-[1.1] text-brown-deep/90 drop-shadow-sm"
+            className="font-display text-[84px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
           >
-            Nihal
+            نِهَال
           </motion.h2>
         </div>
 
