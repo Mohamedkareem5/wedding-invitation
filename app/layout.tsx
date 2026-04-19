@@ -67,19 +67,39 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-ivory text-brown-deep" suppressHydrationWarning>
-        {/* Autoplay muted — MusicButton will unmute on first interaction */}
-        <audio 
-          autoPlay
-          muted
-          loop 
-          playsInline
-          className="hidden" 
-          id="bg-audio"
-        >
-          <source src="/music.mp3" type="audio/mp3" />
-          Your browser does not support the audio element.
+        {/* Audio element in HTML for earliest loading */}
+        <audio id="bg-audio" loop playsInline preload="auto" style={{display:'none'}}>
+          <source src="/music.mp3" type="audio/mpeg" />
         </audio>
-        
+        {/* Inline script runs before React — earliest possible autoplay attempt */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function(){
+  var a = document.getElementById('bg-audio');
+  if(!a) return;
+  a.volume = 0.45;
+  a.currentTime = 12;
+  a.muted = false;
+  a.play().catch(function(){
+    a.muted = true;
+    a.play().catch(function(){});
+    function u(){
+      a.muted=false;
+      if(a.paused) a.play().catch(function(){});
+      ['click','touchstart','scroll','keydown','pointerdown'].forEach(function(e){
+        window.removeEventListener(e,u,true);
+      });
+    }
+    ['click','touchstart','scroll','keydown','pointerdown'].forEach(function(e){
+      window.addEventListener(e,u,true);
+    });
+  });
+  a.addEventListener('ended',function(){a.currentTime=12;a.play().catch(function(){});});
+})();
+`
+          }}
+        />
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>
