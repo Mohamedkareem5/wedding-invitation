@@ -105,7 +105,7 @@ export default function Hero({ revealed }: Props) {
             className="my-2 flex items-center gap-5"
           >
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50" />
-            <span className="font-display text-[48px] text-taupe/50">وَ</span>
+            <span className="font-display text-[48px] text-taupe/50">&amp;</span>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-taupe-pale/50" />
           </motion.div>
 
