@@ -86,13 +86,14 @@ export default function Hero({ revealed }: Props) {
       >
         <motion.p
           variants={item}
-          className="font-body max-w-[280px] text-center text-[18px] leading-[1.8] text-brown-deep/90"
+          className="font-body max-w-[280px] text-center text-[15px] leading-[1.5] text-brown-deep/90"
           dir="rtl"
         >
-          بقدرٍ جميل ونصيبٍ كتبه الله لي بكل الحب أتشرّف بدعوتكم لحضور حفل زفاف
+          بقدرٍ جميل ونصيبٍ كتبه الله لي بكل الحب <br />
+          أتشرّف بدعوتكم لحضور حفل زفاف
         </motion.p>
 
-        <div className="mt-5 flex flex-col items-center">
+        <div className="mt-2 flex flex-col items-center">
           <motion.h2
             variants={item}
             className="font-display text-[64px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
