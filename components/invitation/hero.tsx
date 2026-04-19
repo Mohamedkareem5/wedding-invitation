@@ -81,7 +81,7 @@ export default function Hero({ revealed }: Props) {
         variants={container}
         initial="hidden"
         animate={revealed ? "show" : "hidden"}
-        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-[22%] text-center"
+        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-[28%] text-center"
         dir="ltr"
       >
         <motion.p
@@ -92,7 +92,7 @@ export default function Hero({ revealed }: Props) {
           بقدرٍ جميل ونصيبٍ كتبه الله لي بكل الحب أتشرّف بدعوتكم لحضور حفل زفاف
         </motion.p>
 
-        <div className="mt-6 flex flex-col items-center">
+        <div className="mt-5 flex flex-col items-center">
           <motion.h2
             variants={item}
             className="font-display text-[64px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
@@ -102,10 +102,10 @@ export default function Hero({ revealed }: Props) {
 
           <motion.div
             variants={item}
-            className="my-2 flex items-center gap-5"
+            className="my-1 flex items-center gap-4"
           >
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50" />
-            <div className="relative h-[80px] w-[50px] opacity-70">
+            <div className="relative h-[110px] w-[70px] opacity-75">
               <Image 
                 src="/waw-symbol.png" 
                 alt="Waw symbol" 
@@ -126,7 +126,7 @@ export default function Hero({ revealed }: Props) {
 
         <motion.div
           variants={item}
-          className="mt-10 flex flex-col items-center gap-3"
+          className="mt-6 flex flex-col items-center gap-3"
         >
           <div className="h-px w-20 bg-gradient-to-r from-transparent via-taupe-pale to-transparent opacity-40" />
           
