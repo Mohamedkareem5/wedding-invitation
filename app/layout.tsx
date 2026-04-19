@@ -80,22 +80,41 @@ export default function RootLayout({
   if(!a) return;
   a.volume = 0.45;
   a.currentTime = 12;
-  a.muted = false;
-  a.play().catch(function(){
+
+  function startMuted(){
     a.muted = true;
     a.play().catch(function(){});
-    function u(){
-      a.muted=false;
+    var events = ['click','touchstart','scroll','keydown','pointerdown'];
+    function unmute(){
+      a.muted = false;
+      a.volume = 0.45;
       if(a.paused) a.play().catch(function(){});
-      ['click','touchstart','scroll','keydown','pointerdown'].forEach(function(e){
-        window.removeEventListener(e,u,true);
-      });
+      events.forEach(function(e){ window.removeEventListener(e, unmute, true); });
     }
-    ['click','touchstart','scroll','keydown','pointerdown'].forEach(function(e){
-      window.addEventListener(e,u,true);
+    events.forEach(function(e){ window.addEventListener(e, unmute, true); });
+  }
+
+  function tryPlay(){
+    a.muted = false;
+    var p = a.play();
+    if(p && p.catch){
+      p.catch(function(){ startMuted(); });
+    }
+  }
+
+  // Wait for audio to be ready before playing
+  if(a.readyState >= 3){
+    tryPlay();
+  } else {
+    a.addEventListener('canplaythrough', function handler(){
+      a.removeEventListener('canplaythrough', handler);
+      tryPlay();
     });
-  });
-  a.addEventListener('ended',function(){a.currentTime=12;a.play().catch(function(){});});
+    // Fallback: if canplaythrough never fires within 3s, try anyway
+    setTimeout(function(){ if(a.paused) tryPlay(); }, 3000);
+  }
+
+  a.addEventListener('ended', function(){ a.currentTime = 12; a.play().catch(function(){}); });
 })();
 `
           }}
