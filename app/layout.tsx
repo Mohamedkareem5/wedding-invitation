@@ -66,9 +66,8 @@ export default function RootLayout({
       className={`${amiri.variable} ${cairo.variable} ${scheherazade.variable} ${playfair.variable} ${cormorant.variable} bg-ivory`}
     >
       <body className="font-sans antialiased bg-ivory text-brown-deep">
-        {/* Muted autoplay trick to get around browser policies */}
+        {/* Muted start trick with 2-second delay handled in MusicButton */}
         <audio 
-          autoPlay 
           loop 
           muted 
           playsInline
