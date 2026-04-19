@@ -19,25 +19,31 @@ export default function MusicButton() {
 
     const tryPlay = async () => {
       const a = audioRef.current
-      if (!a) return
+      if (!a) return false
       try {
         if (a.readyState >= 1 && a.currentTime < START_AT) {
           a.currentTime = START_AT
         }
         await a.play()
         setPlaying(true)
+        return true
       } catch (error) {
         // Autoplay blocked, will retry on user interaction
+        return false
       }
     }
 
-    const onInteract = () => {
+    const onInteract = async () => {
       if (document.hidden) return // don't play if tab is backgrounded
-      tryPlay()
-      document.removeEventListener("click", onInteract)
-      document.removeEventListener("touchstart", onInteract)
-      document.removeEventListener("scroll", onInteract)
-      document.removeEventListener("pointerdown", onInteract)
+      if (playing) return
+
+      const success = await tryPlay()
+      if (success) {
+        document.removeEventListener("click", onInteract)
+        document.removeEventListener("touchstart", onInteract)
+        document.removeEventListener("scroll", onInteract)
+        document.removeEventListener("pointerdown", onInteract)
+      }
     }
 
     document.addEventListener("click", onInteract)
