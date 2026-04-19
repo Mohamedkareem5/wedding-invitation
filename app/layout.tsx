@@ -67,58 +67,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="font-sans antialiased bg-ivory text-brown-deep" suppressHydrationWarning>
-        {/* Audio element in HTML for earliest loading */}
+        {/* Audio element — plays only when user clicks the music button */}
         <audio id="bg-audio" loop playsInline preload="auto" style={{display:'none'}}>
           <source src="/music.mp3" type="audio/mpeg" />
         </audio>
-        {/* Inline script runs before React — earliest possible autoplay attempt */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-(function(){
-  var a = document.getElementById('bg-audio');
-  if(!a) return;
-  a.volume = 0.45;
-  a.currentTime = 12;
-
-  function startMuted(){
-    a.muted = true;
-    a.play().catch(function(){});
-    var events = ['click','touchstart','scroll','keydown','pointerdown'];
-    function unmute(){
-      a.muted = false;
-      a.volume = 0.45;
-      if(a.paused) a.play().catch(function(){});
-      events.forEach(function(e){ window.removeEventListener(e, unmute, true); });
-    }
-    events.forEach(function(e){ window.addEventListener(e, unmute, true); });
-  }
-
-  function tryPlay(){
-    a.muted = false;
-    var p = a.play();
-    if(p && p.catch){
-      p.catch(function(){ startMuted(); });
-    }
-  }
-
-  // Wait for audio to be ready before playing
-  if(a.readyState >= 3){
-    tryPlay();
-  } else {
-    a.addEventListener('canplaythrough', function handler(){
-      a.removeEventListener('canplaythrough', handler);
-      tryPlay();
-    });
-    // Fallback: if canplaythrough never fires within 3s, try anyway
-    setTimeout(function(){ if(a.paused) tryPlay(); }, 3000);
-  }
-
-  a.addEventListener('ended', function(){ a.currentTime = 12; a.play().catch(function(){}); });
-})();
-`
-          }}
-        />
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}
       </body>

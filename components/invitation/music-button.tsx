@@ -38,7 +38,10 @@ export default function MusicButton() {
     if (audio.muted || audio.paused) {
       audio.muted = false;
       audio.volume = 0.45;
-      if (audio.paused) audio.play().catch(() => {});
+      if (audio.paused) {
+        audio.currentTime = audio.currentTime === 0 ? 12 : audio.currentTime;
+        audio.play().catch(() => {});
+      }
       setMuted(false);
     } else {
       audio.muted = true;
