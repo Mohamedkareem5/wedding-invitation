@@ -2,17 +2,7 @@
 
 import { motion } from "framer-motion"
 
-type Props = {
-  heading?: string
-  body?: string
-  attribution?: string
-}
-
-export default function QuoteCard({
-  heading = "ومن آياته",
-  body = "ومن آياته أن خلق لكم من أنفسكم أزواجًا لتسكنوا إليها وجعل بينكم مودةً ورحمة، إن في ذلك لآياتٍ لقومٍ يتفكرون.",
-  attribution = "سورة الروم — آية ٢١",
-}: Props) {
+export default function QuoteCard() {
   return (
     <section className="relative w-full bg-ivory px-6 py-10">
       <motion.div
@@ -28,8 +18,20 @@ export default function QuoteCard({
           className="pointer-events-none absolute inset-2 rounded-[14px] border border-taupe-pale/60"
         />
 
+        {/* Bismillah */}
+        <motion.p
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-center text-[22px] leading-[2] text-brown-deep"
+          style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
+        >
+          بِسْمِ ٱللَّهِ ٱلرَّحْمَـٰنِ ٱلرَّحِيمِ
+        </motion.p>
+
         <motion.div
-          className="flex items-center justify-center gap-2"
+          className="flex items-center justify-center gap-2 mt-3"
           aria-hidden="true"
           initial={{ opacity: 0, scale: 0.6 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -44,16 +46,16 @@ export default function QuoteCard({
           <span className="h-px w-8 bg-taupe-pale" />
         </motion.div>
 
-        <h3 className="font-display mt-4 text-center text-[30px] text-brown-deep">
-          {heading}
-        </h3>
-
-        <p className="font-body mt-5 text-center text-[15px] leading-[2] text-brown-deep">
-          {body}
+        {/* Quran verse with full tashkeel */}
+        <p
+          className="mt-5 text-center text-[20px] leading-[2.4] text-brown-deep"
+          style={{ fontFamily: "var(--font-amiri), 'Amiri', serif" }}
+        >
+          وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم مِّنْ أَنفُسِكُمْ أَزْوَاجًا لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ إِنَّ فِي ذَٰلِكَ لَآيَاتٍ لِّقَوْمٍ يَتَفَكَّرُونَ
         </p>
 
         <p className="font-ui mt-5 text-center text-[12px] tracking-[0.12em] text-taupe">
-          {attribution}
+          سورة الروم — آية ٢١
         </p>
       </motion.div>
     </section>
