@@ -10,31 +10,57 @@ export default function MusicButton() {
   const [playing, setPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  // Removed the useEffect since we now rely on the <audio> tag in the DOM
   useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = 0.45
-    }
-  }, [])
+    const a = audioRef.current;
+    if (!a) return;
+    a.volume = 0.45;
 
-    const toggle = async () => {
-      const audio = audioRef.current
-      if (!audio) return
-      if (playing) {
-        audio.pause()
-        setPlaying(false)
-      } else {
-        try {
-          if (audio.currentTime < START_AT - 0.5) {
-            audio.currentTime = START_AT
-          }
-          await audio.play()
-          setPlaying(true)
-        } catch {
-          setPlaying(false)
+    let intervalId: ReturnType<typeof setInterval>;
+
+    const forcePlay = async () => {
+      // If manually paused or already playing, stop forcing
+      if (a.paused === false) {
+        setPlaying(true);
+        clearInterval(intervalId);
+        return;
+      }
+      try {
+        if (a.readyState >= 1 && a.currentTime < START_AT) {
+          a.currentTime = START_AT;
         }
+        await a.play();
+        setPlaying(true);
+        clearInterval(intervalId);
+      } catch (e) {
+        // Autoplay blocked. Browsers like Chrome/Safari will throw a DOMException.
+        // We will keep trying in the interval in case an interaction occurs somewhere else.
+      }
+    };
+
+    forcePlay();
+    intervalId = setInterval(forcePlay, 500);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
+  const toggle = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (playing) {
+      audio.pause()
+      setPlaying(false)
+    } else {
+      try {
+        if (audio.readyState >= 1 && audio.currentTime < START_AT - 0.5) {
+          audio.currentTime = START_AT
+        }
+        await audio.play()
+        setPlaying(true)
+      } catch {
+        setPlaying(false)
       }
     }
+  }
   
     return (
       <>
