@@ -15,11 +15,38 @@ export default function MusicButton() {
     
     audio.volume = 0.45;
     
-    // Check if the browser actually allowed the autoplay
-    if (!audio.paused) {
-      setPlaying(true);
+    // Ensure the audio starts at the right time
+    const initStartTime = () => {
+      if (audio.currentTime < START_AT - 0.1) {
+        audio.currentTime = START_AT;
+      }
+    };
+
+    if (audio.readyState >= 1) {
+      initStartTime();
+    } else {
+      audio.addEventListener('loadedmetadata', initStartTime);
     }
+
+    // Unmute on first interaction
+    const handleInteraction = () => {
+      if (audio.muted) {
+        audio.muted = false;
+        // Extra push to play in case it was stalled
+        audio.play().catch(() => {});
+      }
+      
+      // Stop listening after first interaction
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("touchstart", handleInteraction);
+      window.removeEventListener("scroll", handleInteraction);
+    };
+
+    window.addEventListener("click", handleInteraction);
+    window.addEventListener("touchstart", handleInteraction);
+    window.addEventListener("scroll", handleInteraction);
     
+    // Synce state with actual audio play state
     const handlePlay = () => setPlaying(true);
     const handlePause = () => setPlaying(false);
     const handleEnded = () => {
@@ -31,10 +58,16 @@ export default function MusicButton() {
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("ended", handleEnded);
 
+    // Initial check
+    if (!audio.paused) setPlaying(true);
+
     return () => {
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("ended", handleEnded);
+      window.removeEventListener("click", handleInteraction);
+      window.removeEventListener("touchstart", handleInteraction);
+      window.removeEventListener("scroll", handleInteraction);
     };
   }, []);
 
@@ -47,6 +80,7 @@ export default function MusicButton() {
       setPlaying(false)
     } else {
       try {
+        audio.muted = false; // Always unmute when manually playing
         if (audio.currentTime < START_AT - 0.5) {
           audio.currentTime = START_AT
         }

@@ -66,8 +66,15 @@ export default function RootLayout({
       className={`${amiri.variable} ${cairo.variable} ${scheherazade.variable} ${playfair.variable} ${cormorant.variable} bg-ivory`}
     >
       <body className="font-sans antialiased bg-ivory text-brown-deep">
-        {/* User requested bare HTML audio element for autoplay */}
-        <audio autoPlay loop className="hidden" id="bg-audio">
+        {/* Muted autoplay trick to get around browser policies */}
+        <audio 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+          className="hidden" 
+          id="bg-audio"
+        >
           <source src="/music.mp3" type="audio/mp3" />
           Your browser does not support the audio element.
         </audio>
