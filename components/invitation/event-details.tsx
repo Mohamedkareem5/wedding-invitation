@@ -58,7 +58,7 @@ function EventCard() {
           السبت، ٢ مايو ٢٠٢٦
         </p>
         <p className="font-ui num-ar mt-1 text-[13px] text-brown-muted">
-          الساعة ٨:٠٠ مساءً
+          الساعة ٥:٠٠ مساءً
         </p>
       </div>
     </motion.article>

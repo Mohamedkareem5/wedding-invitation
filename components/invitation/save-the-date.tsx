@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion"
 import { CalendarPlus } from "lucide-react"
 import { useEffect, useState } from "react"
 
-// May 2, 2026 — 8:00 PM local time
-const WEDDING_DATE = new Date("2026-05-02T20:00:00")
+// May 2, 2026 — 5:00 PM local time
+const WEDDING_DATE = new Date("2026-05-02T17:00:00")
 
 function useCountdown(target: Date) {
   const [time, setTime] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 })
@@ -55,8 +55,8 @@ export default function SaveTheDate() {
   const { days, hours, minutes, seconds } = useCountdown(WEDDING_DATE)
 
   const handleAddToCalendar = () => {
-    const start = "20260502T170000Z" // 8 PM Cairo (UTC+3) => 5 PM UTC
-    const end = "20260502T230000Z"
+    const start = "20260502T140000Z" // 5 PM Cairo (UTC+3) => 2 PM UTC
+    const end = "20260502T200000Z"
     const title = encodeURIComponent("Wedding of Moustafa & Nihal")
     const details = encodeURIComponent(
       "We would be honored by your presence at our wedding celebration."

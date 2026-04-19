@@ -48,8 +48,8 @@ export default function Page() {
         >
           <Hero revealed={opened} />
           <QuoteCard />
-          <CouplePhoto />
           <SaveTheDate />
+          <CouplePhoto />
           <EventDetails />
           <OurStory />
 
