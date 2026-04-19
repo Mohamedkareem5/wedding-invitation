@@ -81,7 +81,7 @@ export default function Hero({ revealed }: Props) {
         variants={container}
         initial="hidden"
         animate={revealed ? "show" : "hidden"}
-        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-[28%] text-center"
+        className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-[38%] text-center"
         dir="ltr"
       >
         <motion.p
@@ -105,7 +105,7 @@ export default function Hero({ revealed }: Props) {
             className="my-1 flex items-center gap-4"
           >
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50" />
-            <div className="relative h-[110px] w-[70px] opacity-75">
+            <div className="relative h-[160px] w-[95px] opacity-75">
               <Image 
                 src="/waw-symbol.png" 
                 alt="Waw symbol" 
