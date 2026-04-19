@@ -95,7 +95,7 @@ export default function Hero({ revealed }: Props) {
         <div className="mt-6 flex flex-col items-center">
           <motion.h2
             variants={item}
-            className="font-display text-[84px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
+            className="font-display text-[64px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
           >
             مُصْطَفَى
           </motion.h2>
@@ -105,13 +105,20 @@ export default function Hero({ revealed }: Props) {
             className="my-2 flex items-center gap-5"
           >
             <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50" />
-            <span className="font-display text-[48px] text-taupe/50">&amp;</span>
+            <div className="relative h-[80px] w-[50px] opacity-70">
+              <Image 
+                src="/waw-symbol.png" 
+                alt="Waw symbol" 
+                fill 
+                className="object-contain floral-blend" 
+              />
+            </div>
             <span className="h-px w-10 bg-gradient-to-l from-transparent to-taupe-pale/50" />
           </motion.div>
 
           <motion.h2
             variants={item}
-            className="font-display text-[84px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
+            className="font-display text-[64px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
           >
             نِهَال
           </motion.h2>
