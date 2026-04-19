@@ -75,25 +75,7 @@ export default function SaveTheDate() {
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] as const }}
         className="relative mx-auto flex max-w-[360px] flex-col items-center rounded-t-[200px] rounded-b-[20px] border border-taupe-pale/70 bg-ivory-card px-6 pb-10 pt-14"
       >
-        <h3 className="font-display text-center text-[32px] text-brown-deep">
-          احفظ التاريخ
-        </h3>
-        <motion.div
-          className="mt-3 flex items-center gap-3"
-          aria-hidden="true"
-          initial={{ opacity: 0, width: 0 }}
-          whileInView={{ opacity: 1, width: "auto" }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.2 }}
-        >
-          <span className="h-px w-8 bg-taupe-pale" />
-          <span
-            className="h-1.5 w-1.5 bg-taupe"
-            style={{ clipPath: "polygon(50% 0, 100% 50%, 50% 100%, 0 50%)" }}
-          />
-          <span className="h-px w-8 bg-taupe-pale" />
-        </motion.div>
-        <p className="font-ui num-ar mt-3 text-[12px] tracking-[0.22em] text-taupe">
+        <p className="font-ui num-ar text-[12px] tracking-[0.22em] text-taupe">
           السبت، ٢ مايو ٢٠٢٦
         </p>
 

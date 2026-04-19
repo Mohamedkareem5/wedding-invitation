@@ -28,28 +28,11 @@ export default function CouplePhoto() {
             sizes="430px"
           />
         </motion.div>
-        <div 
-          className="absolute inset-x-0 bottom-0 h-48 z-10 pointer-events-none" 
-          style={{ 
-            backdropFilter: 'blur(16px)', 
-            WebkitBackdropFilter: 'blur(16px)',
-            maskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)',
-            WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 100%)'
-          }} 
-        />
-        <div className="absolute inset-x-0 bottom-[-2px] h-48 z-10 bg-gradient-to-t from-ivory via-ivory/90 to-transparent" />
+        {/* Bottom Fade */}
+        <div className="absolute inset-x-0 bottom-[-2px] h-48 z-10 bg-gradient-to-t from-ivory via-ivory/80 to-transparent" />
 
-        {/* Top Fade - More aggressive to hide the sharp edge */}
-        <div 
-          className="absolute inset-x-0 top-0 h-64 z-20 pointer-events-none" 
-          style={{ 
-            backdropFilter: 'blur(20px)', 
-            WebkitBackdropFilter: 'blur(20px)',
-            maskImage: 'linear-gradient(to top, transparent 0%, black 100%)',
-            WebkitMaskImage: 'linear-gradient(to top, transparent 0%, black 100%)'
-          }} 
-        />
-        <div className="absolute inset-x-0 top-[-2px] h-64 z-20 bg-gradient-to-b from-ivory via-ivory/95 to-transparent" />
+        {/* Top Fade */}
+        <div className="absolute inset-x-0 top-[-2px] h-48 z-20 bg-gradient-to-b from-ivory via-ivory/80 to-transparent" />
 
         <motion.div
           className="absolute inset-x-0 bottom-6 text-center"

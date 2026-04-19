@@ -4,7 +4,7 @@ import { useState, useCallback } from "react"
 import { motion } from "framer-motion"
 import Hero from "@/components/invitation/hero"
 import QuoteCard from "@/components/invitation/quote-card"
-
+import SaveTheDate from "@/components/invitation/save-the-date"
 import EventDetails from "@/components/invitation/event-details"
 import CouplePhoto from "@/components/invitation/couple-photo"
 import OurStory from "@/components/invitation/our-story"
@@ -49,6 +49,7 @@ export default function Page() {
           <Hero revealed={opened} />
           <QuoteCard />
           <CouplePhoto />
+          <SaveTheDate />
           <EventDetails />
           <OurStory />
 
