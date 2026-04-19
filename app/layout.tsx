@@ -64,12 +64,14 @@ export default function RootLayout({
       lang="ar"
       dir="rtl"
       className={`${amiri.variable} ${cairo.variable} ${scheherazade.variable} ${playfair.variable} ${cormorant.variable} bg-ivory`}
+      suppressHydrationWarning
     >
-      <body className="font-sans antialiased bg-ivory text-brown-deep">
-        {/* Muted start trick with 2-second delay handled in MusicButton */}
+      <body className="font-sans antialiased bg-ivory text-brown-deep" suppressHydrationWarning>
+        {/* Autoplay muted — MusicButton will unmute on first interaction */}
         <audio 
+          autoPlay
+          muted
           loop 
-          muted 
           playsInline
           className="hidden" 
           id="bg-audio"
