@@ -86,7 +86,7 @@ export default function Hero({ revealed }: Props) {
       >
         <motion.p
           variants={item}
-          className="font-body max-w-[280px] text-center text-[15px] leading-[1.5] text-brown-deep/90"
+          className="font-body max-w-[280px] text-center text-[16px] leading-[1.6] text-brown-deep/90"
           dir="rtl"
         >
           بقدرٍ جميل ونصيبٍ كتبه الله لي بكل الحب <br />
@@ -96,7 +96,7 @@ export default function Hero({ revealed }: Props) {
         <div className="mt-4 flex flex-col items-center">
           <motion.h2
             variants={item}
-            className="font-display text-[52px] leading-none text-brown-deep/90 drop-shadow-sm relative z-20 mb-[10px]"
+            className="font-display text-[52px] leading-none text-brown-deep/90 drop-shadow-sm relative z-20 mb-[15px]"
           >
             مُصْطَفَى
           </motion.h2>
@@ -120,7 +120,7 @@ export default function Hero({ revealed }: Props) {
 
           <motion.h2
             variants={item}
-            className="font-display text-[52px] leading-none text-brown-deep/90 drop-shadow-sm relative z-20 mt-[10px]"
+            className="font-display text-[52px] leading-none text-brown-deep/90 drop-shadow-sm relative z-20 mt-[15px]"
           >
             نِهَال
           </motion.h2>
