@@ -15,13 +15,33 @@ export default function MusicButton() {
     audio.preload = "auto"
     audio.loop = false
     audio.volume = 0.45
-    audio.addEventListener("loadedmetadata", () => {
-      try {
-        audio.currentTime = START_AT
-      } catch {
-        /* ignore */
-      }
-    })
+    audioRef.current = audio
+
+    const tryPlay = () => {
+      audio.currentTime = START_AT
+      audio.play().then(() => {
+        setPlaying(true)
+      }).catch(() => {
+        // Autoplay blocked, wait for user interaction anywhere
+        const onInteract = () => {
+          if (audioRef.current && audioRef.current.paused) {
+            audioRef.current.currentTime = START_AT
+            audioRef.current.play().then(() => {
+              setPlaying(true)
+            }).catch(() => {})
+          }
+          document.removeEventListener("click", onInteract)
+          document.removeEventListener("touchstart", onInteract)
+          document.removeEventListener("scroll", onInteract)
+        }
+        document.addEventListener("click", onInteract)
+        document.addEventListener("touchstart", onInteract)
+        document.addEventListener("scroll", onInteract)
+      })
+    }
+
+    audio.addEventListener("loadedmetadata", tryPlay)
+
     audio.addEventListener("ended", () => {
       try {
         audio.currentTime = START_AT
@@ -30,7 +50,7 @@ export default function MusicButton() {
         /* ignore */
       }
     })
-    audioRef.current = audio
+
     return () => {
       audio.pause()
       audioRef.current = null
@@ -60,7 +80,7 @@ export default function MusicButton() {
     <motion.button
       type="button"
       onClick={toggle}
-      aria-label={playing ? "إيقاف الموسيقى" : "تشغيل الموسيقى"}
+      aria-label={playing ? "Pause Music" : "Play Music"}
       aria-pressed={playing}
       animate={playing ? { scale: 1 } : { scale: [1, 1.08, 1] }}
       transition={
