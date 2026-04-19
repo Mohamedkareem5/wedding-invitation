@@ -2,12 +2,13 @@
 
 import { motion } from "framer-motion"
 import { Music2 } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const START_AT = 12
 
 export default function MusicButton() {
   const [playing, setPlaying] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const audio = document.getElementById("bg-audio") as HTMLAudioElement;
@@ -15,8 +16,8 @@ export default function MusicButton() {
     
     audio.volume = 0.45;
     
-    const initStartTime = () => {
-      if (audio.currentTime < START_AT - 0.1) {
+    const applyStartTime = () => {
+      if (Math.abs(audio.currentTime - START_AT) > 0.5) {
         audio.currentTime = START_AT;
       }
     };
@@ -27,6 +28,10 @@ export default function MusicButton() {
         audio.muted = false;
         audio.play().catch(() => {});
       }
+      cleanupInteraction();
+    };
+
+    const cleanupInteraction = () => {
       window.removeEventListener("click", handleInteraction);
       window.removeEventListener("touchstart", handleInteraction);
       window.removeEventListener("scroll", handleInteraction);
@@ -37,19 +42,16 @@ export default function MusicButton() {
     window.addEventListener("scroll", handleInteraction);
 
     const startAudio = () => {
-      if (audio.readyState >= 1) {
-        initStartTime();
-      } else {
-        audio.addEventListener('loadedmetadata', initStartTime, { once: true });
-      }
-      
-      // Attempt play after the 2s delay
+      applyStartTime();
       audio.play().catch(() => {
-        // Fallback: stay muted if blocked, interaction handler will unmute later
+        // If unmuted play fails, try muted play (standard autoplay trick)
+        audio.muted = true;
+        audio.play().catch(() => {});
       });
     };
 
-    const timerId = setTimeout(startAudio, 2000);
+    // Wait 2 seconds before autoplaying
+    timerRef.current = setTimeout(startAudio, 2000);
     
     const handlePlay = () => setPlaying(true);
     const handlePause = () => setPlaying(false);
@@ -62,14 +64,19 @@ export default function MusicButton() {
     audio.addEventListener("pause", handlePause);
     audio.addEventListener("ended", handleEnded);
 
+    // If metadata is already here, prepare the time
+    if (audio.readyState >= 1) {
+      applyStartTime();
+    } else {
+      audio.addEventListener('loadedmetadata', applyStartTime, { once: true });
+    }
+
     return () => {
-      clearTimeout(timerId);
+      if (timerRef.current) clearTimeout(timerRef.current);
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePause);
       audio.removeEventListener("ended", handleEnded);
-      window.removeEventListener("click", handleInteraction);
-      window.removeEventListener("touchstart", handleInteraction);
-      window.removeEventListener("scroll", handleInteraction);
+      cleanupInteraction();
     };
   }, []);
 
@@ -77,6 +84,12 @@ export default function MusicButton() {
     const audio = document.getElementById("bg-audio") as HTMLAudioElement;
     if (!audio) return;
     
+    // If they click early, cancel the 2s timer
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+
     if (playing) {
       audio.pause()
       setPlaying(false)
