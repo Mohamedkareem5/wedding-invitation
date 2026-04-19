@@ -17,36 +17,36 @@ export default function MusicButton() {
     audio.volume = 0.45
     audioRef.current = audio
 
-    const tryPlay = () => {
-      if (!audioRef.current) return
-      audio.currentTime = START_AT
-      audio.play().then(() => {
-        setPlaying(true)
-      }).catch(() => {
-        // Autoplay blocked, wait for user interaction anywhere
-        const onInteract = () => {
-          if (audioRef.current && audioRef.current.paused) {
-            audioRef.current.currentTime = START_AT
-            audioRef.current.play().then(() => {
-              setPlaying(true)
-            }).catch(() => {})
-          }
-          document.removeEventListener("click", onInteract)
-          document.removeEventListener("touchstart", onInteract)
-          document.removeEventListener("scroll", onInteract)
+    const tryPlay = async () => {
+      const a = audioRef.current
+      if (!a) return
+      try {
+        if (a.readyState >= 1 && a.currentTime < START_AT) {
+          a.currentTime = START_AT
         }
-        document.addEventListener("click", onInteract)
-        document.addEventListener("touchstart", onInteract)
-        document.addEventListener("scroll", onInteract)
-      })
+        await a.play()
+        setPlaying(true)
+      } catch (error) {
+        // Autoplay blocked, will retry on user interaction
+      }
     }
 
-    // Try playing when metadata is loaded or immediately
-    if (audio.readyState >= 2) {
+    const onInteract = () => {
+      if (document.hidden) return // don't play if tab is backgrounded
       tryPlay()
-    } else {
-      audio.addEventListener("loadeddata", tryPlay)
+      document.removeEventListener("click", onInteract)
+      document.removeEventListener("touchstart", onInteract)
+      document.removeEventListener("scroll", onInteract)
+      document.removeEventListener("pointerdown", onInteract)
     }
+
+    document.addEventListener("click", onInteract)
+    document.addEventListener("touchstart", onInteract)
+    document.addEventListener("scroll", onInteract)
+    document.addEventListener("pointerdown", onInteract)
+
+    audio.addEventListener("loadeddata", tryPlay)
+    tryPlay() // try immediately
 
 
     audio.addEventListener("ended", () => {
