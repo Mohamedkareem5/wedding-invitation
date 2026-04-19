@@ -93,20 +93,20 @@ export default function Hero({ revealed }: Props) {
           أتشرّف بدعوتكم لحضور حفل زفاف
         </motion.p>
 
-        <div className="mt-2 flex flex-col items-center">
+        <div className="mt-4 flex flex-col items-center">
           <motion.h2
             variants={item}
-            className="font-display text-[64px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
+            className="font-display text-[52px] leading-none text-brown-deep/90 drop-shadow-sm relative z-20 mb-[10px]"
           >
             مُصْطَفَى
           </motion.h2>
 
           <motion.div
             variants={item}
-            className="my-1 flex items-center gap-4"
+            className="relative flex items-center justify-center w-full z-10"
           >
-            <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50" />
-            <div className="relative h-[160px] w-[95px] opacity-75">
+            <span className="h-px w-10 bg-gradient-to-r from-transparent to-taupe-pale/50 absolute left-1/2 -translate-x-[60px]" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[110px] w-[70px] opacity-80 pointer-events-none">
               <Image 
                 src="/waw-symbol.png" 
                 alt="Waw symbol" 
@@ -114,12 +114,13 @@ export default function Hero({ revealed }: Props) {
                 className="object-contain floral-blend" 
               />
             </div>
-            <span className="h-px w-10 bg-gradient-to-l from-transparent to-taupe-pale/50" />
+            <span className="h-px w-10 bg-gradient-to-l from-transparent to-taupe-pale/50 absolute left-1/2 translate-x-[20px]" />
+            <div className="h-[30px] w-full" />
           </motion.div>
 
           <motion.h2
             variants={item}
-            className="font-display text-[64px] leading-[1.1] text-brown-deep/90 drop-shadow-sm"
+            className="font-display text-[52px] leading-none text-brown-deep/90 drop-shadow-sm relative z-20 mt-[10px]"
           >
             نِهَال
           </motion.h2>
