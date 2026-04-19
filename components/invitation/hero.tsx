@@ -129,6 +129,14 @@ export default function Hero({ revealed }: Props) {
           <div className="h-px w-20 bg-gradient-to-r from-transparent via-taupe-pale to-transparent opacity-40" />
         </motion.div>
 
+        <motion.p
+          variants={item}
+          className="font-body mt-6 max-w-[280px] text-center text-[18px] leading-[1.8] text-brown-deep/90"
+          dir="rtl"
+        >
+          بقدرٍ جميل ونصيبٍ كتبه الله لي بكل الحب أتشرّف بدعوتكم لحضور حفل زفاف
+        </motion.p>
+
         {/* Decorative rotating diamond */}
         <motion.div
           variants={item}

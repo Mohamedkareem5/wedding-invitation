@@ -69,7 +69,7 @@ export default function RootLayout({
       <body className="font-sans antialiased bg-ivory text-brown-deep" suppressHydrationWarning>
         {/* Audio element — plays only when user clicks the music button */}
         <audio id="bg-audio" loop playsInline preload="auto" style={{display:'none'}}>
-          <source src="/music.mp3" type="audio/mpeg" />
+          <source src="/ReelAudio-28874.mp3" type="audio/mpeg" />
         </audio>
         {children}
         {process.env.NODE_ENV === "production" && <Analytics />}

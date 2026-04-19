@@ -79,7 +79,11 @@ export default function SaveTheDate() {
           السبت، ٢ مايو ٢٠٢٦
         </p>
 
-        <div className="mt-6 grid grid-cols-2 gap-3">
+        <h3 className="font-english mt-8 text-center text-[24px] italic text-brown-deep">
+          Countdown Timer
+        </h3>
+
+        <div className="mt-4 grid grid-cols-2 gap-3">
           <Tile value={days} label="يوم" />
           <Tile value={hours} label="ساعة" />
           <Tile value={minutes} label="دقيقة" />
