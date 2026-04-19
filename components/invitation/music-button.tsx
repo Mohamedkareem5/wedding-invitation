@@ -18,6 +18,7 @@ export default function MusicButton() {
     audioRef.current = audio
 
     const tryPlay = () => {
+      if (!audioRef.current) return
       audio.currentTime = START_AT
       audio.play().then(() => {
         setPlaying(true)
@@ -40,7 +41,13 @@ export default function MusicButton() {
       })
     }
 
-    audio.addEventListener("loadedmetadata", tryPlay)
+    // Try playing when metadata is loaded or immediately
+    if (audio.readyState >= 2) {
+      tryPlay()
+    } else {
+      audio.addEventListener("loadeddata", tryPlay)
+    }
+
 
     audio.addEventListener("ended", () => {
       try {
